@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro Comunitario de AFORE PENSIONISSSTE - Sorteo 2025</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px;
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0072B1;
+        }
+        .comment-box {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        #comment-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        #new-comment {
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #submit-btn {
+            padding: 10px 20px;
+            background-color: #0072B1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #submit-btn:hover {
+            background-color: #005f8c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>💬 Foro Comunitario de AFORE PENSIONISSSTE - Sorteo 2025</h1>
+    <p>¡Bienvenidos al foro de PENSIONISSSTE! Este es un espacio creado para que puedas compartir tus experiencias, resolver dudas y aprender más sobre el sorteo anual de AFORE PENSIONISSSTE.</p>
+
+    <div id="comment-form">
+        <label for="new-comment">👉 Deja tus comentarios o preguntas sobre el sorteo AFORE PENSIONISSSTE 2025:</label>
+        <textarea id="new-comment" rows="4" placeholder="Escribe tu comentario aquí..."></textarea>
+        <button id="submit-btn">Agregar Comentario</button>
+    </div>
+
+    <h2>Comentarios:</h2>
+    <div id="comments-section">
+        <!-- Los comentarios se agregarán aquí -->
+    </div>
+</div>
+
+<script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwrAE5n8sbJmo45q3oJhpFcjAYyz03kJ1cpCzJWRGCbskb_ylj2MK-usGhRL1YHOwSy/exec'; // Reemplaza con tu URL de Google Apps Script
+
+    // Función para cargar comentarios desde Google Sheets
+    function loadComments() {
+        fetch(API_URL + '?action=getComments')
+            .then(response => response.json())
+            .then(comments => {
+                const commentsSection = document.getElementById('comments-section');
+                commentsSection.innerHTML = ''; // Limpiar la sección de comentarios
+                comments.forEach(commentObj => {
+                    const commentDiv = document.createElement('div');
+                    commentDiv.classList.add('comment-box');
+                    commentDiv.textContent = `- ${commentObj.comment}`;  // Mostrar solo el comentario
+                    commentsSection.appendChild(commentDiv);
+                });
+            });
+    }
+
+    // Función para agregar un comentario a Google Sheets
+    function addComment() {
+        const newComment = document.getElementById('new-comment').value;
+        if (newComment.trim() !== '') {
+            fetch(API_URL + `?action=addComment&comment=${encodeURIComponent(newComment)}`)
+                .then(response => response.text())
+                .then(() => {
+                    loadComments(); // Recargar los comentarios después de agregar uno nuevo
+                    document.getElementById('new-comment').value = ''; // Limpiar el campo de comentario
+                });
+        } else {
+            alert("Por favor, escribe un comentario antes de enviar.");
+        }
+    }
+
+    // Manejar el clic en el botón para agregar un comentario
+    document.getElementById('submit-btn').addEventListener('click', addComment);
+
+    // Cargar los comentarios al cargar la página
+    loadComments();
+</script>
+
+</body>
+</html>
