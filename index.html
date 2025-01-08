@@ -76,10 +76,11 @@
 </div>
 
 <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbzMElAw1Lum3a6LJl2OuVRUGp7TuIzB8mr26NlLc5QV18RlvkSVKCFslkJimNnSFIN6/exec'; // Reemplaza con tu URL de Google Apps Script
+    const API_URL = 'TU_URL_DEL_WEB_APP';  // Reemplaza con tu URL de Google Apps Script
 
     // Función para cargar comentarios desde Google Sheets
     function loadComments() {
+        console.log("Cargando comentarios...");
         fetch(API_URL + '?action=getComments')
             .then(response => response.json())
             .then(comments => {
@@ -91,19 +92,23 @@
                     commentDiv.textContent = `- ${commentObj.comment}`;  // Mostrar solo el comentario
                     commentsSection.appendChild(commentDiv);
                 });
-            });
+            })
+            .catch(error => console.error('Error al cargar los comentarios:', error));
     }
 
     // Función para agregar un comentario a Google Sheets
     function addComment() {
         const newComment = document.getElementById('new-comment').value;
+        console.log('Nuevo comentario:', newComment);  // Verificar lo que se envía
         if (newComment.trim() !== '') {
             fetch(API_URL + `?action=addComment&comment=${encodeURIComponent(newComment)}`)
                 .then(response => response.text())
-                .then(() => {
-                    loadComments(); // Recargar los comentarios después de agregar uno nuevo
+                .then(responseText => {
+                    console.log('Respuesta del servidor:', responseText);  // Verificar respuesta del servidor
+                    loadComments();  // Recargar los comentarios después de agregar uno nuevo
                     document.getElementById('new-comment').value = ''; // Limpiar el campo de comentario
-                });
+                })
+                .catch(error => console.error('Error al agregar el comentario:', error));
         } else {
             alert("Por favor, escribe un comentario antes de enviar.");
         }
