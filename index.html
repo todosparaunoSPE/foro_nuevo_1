@@ -6,8 +6,8 @@
     <title>Foro Comunitario de AFORE PENSIONISSSTE - Sorteo 2025</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
             margin: 0;
             padding: 0;
             display: flex;
@@ -19,38 +19,65 @@
             width: 80%;
             max-width: 900px;
             background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #0072B1;
+            margin-bottom: 40px;
         }
         h1 {
             color: #0072B1;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #0072B1;
+            font-size: 1.8em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
         }
         .comment-box {
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #0072B1;
+            border-radius: 8px;
+            padding: 10px 15px;
             margin: 5px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         #comment-form {
             display: flex;
             flex-direction: column;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         #new-comment {
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 12px;
+            margin-bottom: 15px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            font-family: Arial, sans-serif;
+            transition: all 0.3s;
+        }
+        #new-comment:focus {
+            border-color: #0072B1;
+            outline: none;
         }
         #submit-btn {
-            padding: 10px 20px;
+            padding: 12px 20px;
             background-color: #0072B1;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
         }
         #submit-btn:hover {
             background-color: #005f8c;
@@ -60,7 +87,30 @@
             padding-left: 0;
         }
         li {
-            margin-bottom: 30px;  /* Aumentar el espacio entre preguntas */
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #333;
+            line-height: 1.5;
+        }
+        li strong {
+            color: #0072B1;
+        }
+        .footer {
+            background-color: #0072B1;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            margin-top: 40px;
+            border-radius: 0 0 15px 15px;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -105,6 +155,10 @@
     <div id="comments-section">
         <!-- Los comentarios se agregarán aquí -->
     </div>
+</div>
+
+<div class="footer">
+    <p>Desarrollado por PENSIONISSSTE | <a href="https://www.pensionissste.gob.mx" target="_blank">Visita el sitio oficial</a></p>
 </div>
 
 <script>
