@@ -76,11 +76,10 @@
 </div>
 
 <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbyPIrvVb4j39xINGG_gvLZp4uef8ycFbsKTDKAvX78krjtGmVW8XBCF-DpbvdQKxTaV/exec';  // Reemplaza con tu URL de Google Apps Script
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyMllYmL2ki9YNzS5HRJk7nAojmp61Q4aJEMThv_KdjyPe4EmDMPXYCMRIcq9I55XDT/exec'; // Reemplaza con tu URL de Google Apps Script
 
     // Función para cargar comentarios desde Google Sheets
     function loadComments() {
-        console.log("Cargando comentarios...");
         fetch(API_URL + '?action=getComments')
             .then(response => response.json())
             .then(comments => {
@@ -92,23 +91,19 @@
                     commentDiv.textContent = `- ${commentObj.comment}`;  // Mostrar solo el comentario
                     commentsSection.appendChild(commentDiv);
                 });
-            })
-            .catch(error => console.error('Error al cargar los comentarios:', error));
+            });
     }
 
     // Función para agregar un comentario a Google Sheets
     function addComment() {
         const newComment = document.getElementById('new-comment').value;
-        console.log('Nuevo comentario:', newComment);  // Verificar lo que se envía
         if (newComment.trim() !== '') {
             fetch(API_URL + `?action=addComment&comment=${encodeURIComponent(newComment)}`)
                 .then(response => response.text())
-                .then(responseText => {
-                    console.log('Respuesta del servidor:', responseText);  // Verificar respuesta del servidor
-                    loadComments();  // Recargar los comentarios después de agregar uno nuevo
+                .then(() => {
+                    loadComments(); // Recargar los comentarios después de agregar uno nuevo
                     document.getElementById('new-comment').value = ''; // Limpiar el campo de comentario
-                })
-                .catch(error => console.error('Error al agregar el comentario:', error));
+                });
         } else {
             alert("Por favor, escribe un comentario antes de enviar.");
         }
